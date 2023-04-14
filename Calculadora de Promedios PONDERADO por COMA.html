@@ -1,0 +1,32 @@
+<html>
+<body>
+
+	<label for="grades">Ingresa tus notas (separadas por cada una por una coma):</label>
+	<input type="text" id="grades">
+	<button onclick="calculate()">Calcular promedio académico PONDERADO</button>
+	<p id="result"></p>
+
+<script type="text/javascript">
+	
+function calculate() {
+  // Obtener los valores del input
+  const input = document.getElementById("grades").value;
+  
+  // Verificar si se ingresó algún valor
+  if (input === "") {
+    alert("Debes ingresar al menos una nota de cursada");
+    return;
+  }
+  
+  // Convertir la cadena en un array de números y sumarle 0.05 a cada valor si es mayor a 4
+  const gradesArray = input.split(",").map(Number).map(x => x > 4 ? x + 0.05 : x);
+  
+  // Calcular el promedio y sumarle 0.05 por cada nota mayor a 4 ingresada
+  const average = (gradesArray.reduce((acc, val) => acc + val, 0) / gradesArray.length) + (0.05 * gradesArray.filter(x => x > 4).length);
+  
+  // Mostrar el resultado en el HTML
+  const result = document.getElementById("result");
+  result.innerHTML = `Tu promedio de notas PONDERADO es ${average.toFixed(2)} para las proximas inscripciones`;
+}
+
+</script>
